@@ -1,0 +1,116 @@
+﻿@page "/counter"
+@using FlexBusiness_Lib;
+@using System.Globalization;
+@using Radzen.Blazor;
+
+<Radzen.Blazor.RadzenTabs>
+    <Tabs>
+        <Radzen.Blazor.RadzenTabsItem Text="Region Select">
+
+            <Radzen.Blazor.RadzenCard Style="font-size: 11px;">
+                <h1>Flex Goals</h1>
+
+                <h3>Number of RegionMonths: @rlist.Count()</h3>
+
+
+
+                <h2>Select a Region</h2>
+                <select id="ddlRegions" @onchange="@ShowTable" style="width: 200px; font-size: 12px; padding: 5px;">
+                    <option></option>
+                    @foreach (string s in regions)
+                    {
+                        <option value="@s">@s</option>
+                    }
+
+                </select>
+                <br /><br />
+                <h4>REGION: @reg</h4>
+
+                <div style="width:400px;">
+                    <table class="table tblSmall">
+
+                        <tbody>
+                            <tr>
+                                <th>MONTH</th>
+                                <th>GOAL $</th>
+                                <th>ACTUAL $</th>
+                                <th>ATTAINED %</th>
+                            </tr>
+                            @foreach (FlexBL.RegionMonth rm in rlist)
+                            {
+                                <tr>
+                                    <td>@rm.MonthName</td>
+                                    <td>@GetCurrencyString(rm.MonthlyGoal)</td>
+                                    <td>@GetCurrencyString(rm.MonthlyActual)</td>
+                                    <td>@rm.MonthlyAttainment.ToString("P")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </Radzen.Blazor.RadzenCard>
+        </Radzen.Blazor.RadzenTabsItem>
+        <Radzen.Blazor.RadzenTabsItem Text="Month Select"></Radzen.Blazor.RadzenTabsItem>
+        <Radzen.Blazor.RadzenTabsItem Text="All"></Radzen.Blazor.RadzenTabsItem>
+    </Tabs>
+</Radzen.Blazor.RadzenTabs>
+
+
+
+
+
+
+@functions {
+    List<string> regions = FlexBL.RegionMonth.RegionMonthHelper.AllRegions();
+
+    string reg = "Southwest";
+    List<FlexBL.RegionMonth> rlist = FlexBL.RegionMonth.RegionMonthHelper.GetRegionMonthsByRegion("Southwest");
+
+
+    void ShowTable(ChangeEventArgs e)
+    {
+        if (e.Value.ToString() != "")
+        {
+            reg = e.Value.ToString();
+            rlist = FlexBL.RegionMonth.RegionMonthHelper.GetRegionMonthsByRegion(reg);
+        }
+    }
+
+    public static string GetCurrencyString(double input)
+    {
+        var curr = new CultureInfo("en-US");
+        return input.ToString("C", curr);
+    }
+
+}
+
+
+@code {
+
+
+
+
+
+
+}
+
+
+<p>---</p>
+
+<p>Current count: @currentCount</p>
+
+<RadzenButton Click="@IncrementCount" Icon="account_circle" Style="margin-bottom: 20px; width: 80px" />
+<RadzenIcon Icon="alarm" />
+<RadzenIcon Icon="alarm_add" />
+<RadzenIcon Icon="alarm_off" />
+<RadzenIcon Icon="alarm_on" />
+<RadzenIcon Icon="all_out" />
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
