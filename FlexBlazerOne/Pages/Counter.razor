@@ -6,7 +6,11 @@
 <Radzen.Blazor.RadzenTabs>
     <Tabs>
 
-        <Radzen.Blazor.RadzenTabsItem Text="Employee"></Radzen.Blazor.RadzenTabsItem>
+        <Radzen.Blazor.RadzenTabsItem Text="Employee">
+            <Radzen.Blazor.RadzenCard Style="font-size: 11px;">
+
+            </Radzen.Blazor.RadzenCard>
+        </Radzen.Blazor.RadzenTabsItem>
         <Radzen.Blazor.RadzenTabsItem Text="Region Select">
 
             <Radzen.Blazor.RadzenCard Style="font-size: 11px;">
@@ -17,7 +21,7 @@
 
 
                 <h2>Select a Region</h2>
-                <select id="ddlRegions" @onchange="@ShowTable" style="width: 200px; font-size: 12px; padding: 5px;">
+                <select id="ddlRegions" @onchange="@ShowTable" style="width: 200px; font-size: 12px; padding: 3px;">
                     <option></option>
                     @foreach (string s in regions)
                     {
@@ -36,7 +40,7 @@
                                 <th>MONTH</th>
                                 <th>GOAL $</th>
                                 <th>ACTUAL $</th>
-                                <th>ATTAINED %</th>
+                                <th>ATTAIN %</th>
                             </tr>
                             @foreach (FlexBL.RegionMonth rm in rlist)
                             {
