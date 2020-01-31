@@ -6,9 +6,72 @@
 <Radzen.Blazor.RadzenTabs>
     <Tabs>
 
-        <Radzen.Blazor.RadzenTabsItem Text="Employee">
+        <Radzen.Blazor.RadzenTabsItem Text="Comp Info">
             <Radzen.Blazor.RadzenCard Style="font-size: 11px;">
-
+                <div style="width: 400px;">
+                    <Radzen.Blazor.RadzenFieldset>
+                        <div>
+                            <Radzen.Blazor.RadzenHtml>@summary</Radzen.Blazor.RadzenHtml>
+                            <Radzen.Blazor.RadzenHtml>@selectedregions</Radzen.Blazor.RadzenHtml>
+                        </div>
+                    </Radzen.Blazor.RadzenFieldset>
+                    <RadzenFieldset Text="Employee Inputs">
+                        <div class="row">
+                            <div class="col-md-4 align-items-center d-flex">
+                                <RadzenLabel class="labelflexblazor" Text="Name or Initials:" />
+                            </div>
+                            <div class="col-md-8">
+                                <RadzenTextBox class="textflexblazor" Name="rtbName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 align-items-center d-flex">
+                                <RadzenLabel class="labelflexblazor" Text="Annual Salary:" />
+                            </div>
+                            <div class="col-md-8">
+                                <RadzenTextBox class="textflexblazor" Name="rtbAnSalary" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 align-items-center d-flex">
+                                <RadzenLabel class="labelflexblazor" Text="Annual OTC:" />
+                            </div>
+                            <div class="col-md-8">
+                                <RadzenTextBox class="textflexblazor" Name="rtbAnOTC" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 align-items-center d-flex">
+                                <RadzenLabel class="labelflexblazor" Text="Select Region/s:" />
+                            </div>
+                            <div class="col-md-8">
+                                <RadzenCheckBoxList TValue="string" Orientation="Radzen.Orientation.Vertical" @bind-Value="selectedregions" Change="@((args) => ShowSummary(args, "CheckBoxList with horizontal orientation"))">
+                                    <Items>
+                                        @foreach (string r in regions)
+                                        {
+                                            <Radzen.Blazor.RadzenCheckBoxListItem Value="@r" Text="@r" />
+                                        }
+                                    </Items>
+                                </RadzenCheckBoxList>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 align-items-center d-flex">
+                                <RadzenLabel class="labelflexblazor" Text="Select Month/s:" />
+                            </div>
+                            <div class="col-md-8">
+                                <RadzenCheckBoxList TValue="string" Orientation="Radzen.Orientation.Vertical">
+                                    <Items>
+                                        @foreach (string m in months)
+                                        {
+                                            <Radzen.Blazor.RadzenCheckBoxListItem Value="@m" Text="@m" />
+                                        }
+                                    </Items>
+                                </RadzenCheckBoxList>
+                            </div>
+                        </div>
+                    </RadzenFieldset>
+                </div>
             </Radzen.Blazor.RadzenCard>
         </Radzen.Blazor.RadzenTabsItem>
         <Radzen.Blazor.RadzenTabsItem Text="Region Select">
@@ -30,7 +93,7 @@
 
                 </select>
                 <br /><br />
-                <h4>Region: <span style="text-transform: uppercase;">@reg</span></h4>
+                <h4>Region: <span style="text-transform: uppercase; color: purple;">@reg</span></h4>
 
                 <div style="width:400px;">
                     <table class="table tblSmall">
@@ -68,10 +131,23 @@
 
 @functions {
     List<string> regions = FlexBL.RegionMonth.RegionMonthHelper.AllRegions();
+    List<string> months = FlexBL.RegionMonth.RegionMonthHelper.AllMonths();
 
     string reg = "Southwest";
     List<FlexBL.RegionMonth> rlist = FlexBL.RegionMonth.RegionMonthHelper.GetRegionMonthsByRegion("Southwest");
 
+    string summary;
+    IEnumerable<string> selectedregions;
+
+    void ShowSummary(IEnumerable<string> value, string name)
+    {
+        summary = "";
+        foreach (string v in value)
+        {
+            summary += v + ", ";
+        }
+        
+    }
 
     void ShowTable(ChangeEventArgs e)
     {
@@ -92,7 +168,11 @@
 
 
 @code {
+    void Change()
+    {
+        
 
+    }
 
 
 
