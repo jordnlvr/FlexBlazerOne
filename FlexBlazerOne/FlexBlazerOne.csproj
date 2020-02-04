@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FlexBusiness_Lib" Version="1.0.0.4" />
-    <PackageReference Include="Radzen.Blazor" Version="2.1.14" />
+    <PackageReference Include="FlexBusiness_Lib" Version="1.0.0.5" />
+    <PackageReference Include="Radzen.Blazor" Version="2.1.16" />
   </ItemGroup>
 
 </Project>

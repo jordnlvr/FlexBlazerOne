@@ -147,7 +147,7 @@ app {
 
 
 .textflexblazor {
-    width: 100%;
+    max-width: 300px;
     height: 1.5rem !important;
     line-height: 1 !important;
     color: crimson !important;
